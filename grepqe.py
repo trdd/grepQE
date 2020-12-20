@@ -10,7 +10,7 @@ import numpy as np
 
 parser = argparse.ArgumentParser('Quickly get some cell info from several qe calcs')
 parser.add_argument('--pre', type=str, default='', help='directory prefix to look for outfiles')
-parser.add_argument('--file', type=str, default='*.out', help='directory prefix to look for outfiles')
+parser.add_argument('--file', type=str, default='*.out', help='outfile wildcard')
 parser.add_argument('--plot', action='store_true')
 args = parser.parse_args()
 dirs = glob.glob(args.pre+'*/')
@@ -19,6 +19,7 @@ vals = [float(t) if t.isdigit() else t for t in vals]
 ind = np.argsort(vals)
 
 ostr = 7*'{:10.6} '
+print(ostr.format('# '+args.pre, 'a', 'b', 'c', 'al', 'be', 'ga'))
 for i in ind:
     outf = glob.glob(path.join(dirs[i],args.file))
     for f in outf:
