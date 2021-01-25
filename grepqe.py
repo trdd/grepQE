@@ -27,14 +27,14 @@ if args.mode == 'cell':
         fac = 1.
     elif args.units == 'Ry':
         fac = units.create_units('2006')['Ry']   #CODATA 2006 is hard coded in ase.
-    ostr = '{:<10.6} '+6*'{:>10.6} '+'{:>20.15}'
-    print(ostr.format('# '+args.pre, 'a', 'b', 'c', 'al', 'be', 'ga', 'energy'))
+    ostr = '{:<10.6} '+7*'{:>10.6} '+'{:>20.15}'
+    print(ostr.format('# '+args.pre, 'a', 'b', 'c', 'al', 'be', 'ga', 'V', 'energy'))
     for i in ind:
         outf = glob.glob(path.join(dirs[i],args.file))
         for f in outf:
             try:
                 out = io.read(f, format='espresso-out')
-                print(ostr.format(vals[i], *out.cell.cellpar(), out.get_total_energy()/fac))
+                print(ostr.format(vals[i], *out.cell.cellpar(), out.cell.volume, out.get_total_energy()/fac))
             except Exception as e:
                 pass
 
